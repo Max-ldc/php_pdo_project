@@ -1,0 +1,11 @@
+{
+    "name": "maxldc/projet_php_pdo",
+    "description": "Projet noté sur PHP et PDO",
+    "authors": [
+        {
+            "name": "Maxence Leduc",
+            "email": "maxence.leduc@yahoo.com"
+        }
+    ],
+    "require": {}
+}
