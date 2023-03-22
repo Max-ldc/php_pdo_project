@@ -7,6 +7,10 @@ $tournaments = $stmt->fetchAll();
 require_once 'layout/header.php';
 ?>
 
+<section class="container mt-4">
+    <a href="createtourn.php" class="mt-2"><button type="button" class="btn btn-info">Créer un tournoi</button></a>
+</section>
+
 <section class="tournlist container mt-4">
     <h1>Les tournois créés</h1>
     <div class="row mt-5">

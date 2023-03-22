@@ -29,12 +29,11 @@ $trn = new Tournament(
     $tournament['game'],
     $tournament['nb_equipe']
 );
-echo $trn->getName();
-$trn->returnMatches($pdo);
-$teams = $trn->getTeams($pdo);
-foreach ($teams as $team) {
-    echo $team . '<br/>';
-}
+
+echo $trn->getName() . '<br/>';
+echo $trn->getGame();
+$matchs = $trn->returnMatches($idTourn);
+var_dump($matchs);
 ?>
 
 <a href="index.php" class="ms-5 mt-2"><button type="button" class="btn btn-info">Accueil</button></a>

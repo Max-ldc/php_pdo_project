@@ -9,35 +9,56 @@ class Tournament {
         ){
     }
 
-    public function getName(){
+    public function getName(): string
+    {
         return $this->name;
     }
 
-    public function setName($name){
+    public function setName(string $name): void
+    {
         $this->name = $name;
     }
 
-    public function getGame(){
+    public function getGame(): string
+    {
         return $this->game;
     }
 
-    public function setGame($game){
+    public function setGame(string $game): void
+    {
         $this->game = $game;
     }
 
-    public function getNbTeam(){
+    public function getNbTeam(): int
+    {
         return $this->nb_team;
     }
 
-    public function setNbTeam($nbTeam){
+    public function setNbTeam(int $nbTeam): void
+    {
         $this->nb_team = $nbTeam;
     }
 
     // Méthode qui va chercher les matchs du tournoi dans la db
-    public function returnMatches($pdo){
-        $stmtMatch = $pdo->query("SELECT * FROM game WHERE id_tour = $this->id");
+    /**
+     * return the list of each created tournaments matches with their id and the teams
+     * 
+     * 
+     * @param PDO $pdo
+     * @return array
+     */
+    public function returnMatches($tournID) : array
+    {
+        require __DIR__ . '/../config/pdo.php';
+        $stmtMatch = $pdo->query("
+        SELECT game.id 'game', TA.name 'teamA', TB.name 'teamB'
+        FROM game
+        LEFT JOIN team `TA` ON game.id_team_A = TA.id
+        LEFT JOIN team `TB` ON game.id_team_B = TB.id
+        WHERE game.id_tour = $tournID;
+        ");
         $matchs = $stmtMatch->fetchAll();
-        var_dump($matchs);
+        return $matchs;
     }
 
     // Méthode qui va chercher toutes les équipes du tournoi :
@@ -47,8 +68,10 @@ class Tournament {
      * @param PDO $pdo
      * @return array
      */
-    public function getTeams($pdo){
-        require_once 'classes/Team.php';
+    public function getTeams(): array
+    {
+        require __DIR__ . '/../config/pdo.php';
+        require 'classes/Team.php';
         $stmtTeams = $pdo->query(
             "SELECT name FROM team WHERE id IN (
                 SELECT id_team_A FROM game WHERE id_tour = 1
@@ -56,6 +79,7 @@ class Tournament {
                 SELECT id_team_B FROM game WHERE id_tour = 1
             );"
         );
+        // On créé un objet Team pour chaque ligne trouvée et on récupère le nom grâce au getter
         while($row = $stmtTeams->fetchObject('Team')){
             $teams[] = $row->getName();
         }
