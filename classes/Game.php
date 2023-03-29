@@ -1,18 +1,20 @@
 <?php
 
-class Game {
+class Game
+{
     public function __construct(
         private Team $teamA,
         private Team $teamB,
         private Team $win_team
-    )
-    {
+    ) {
     }
 
-    public function getTeamA(){
+    public function getTeamA()
+    {
         return $this->teamA;
     }
-    public function setTeamA($team){
+    public function setTeamA($team)
+    {
         $this->teamA = $team;
     }
 

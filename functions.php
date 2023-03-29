@@ -6,11 +6,18 @@
  * @param integer $nbr
  * @return boolean
  */
-function isPowerOfTwo(int $nbr) : bool    
+function isPowerOfTwo(int $nbr): bool
 {       // on divise par 2 le nombre jusqu'à ce qu'il tombe sur 2 (dans ce cas il est bien une puissance de 2), ou en dessous (dans ce cas il ne l'est pas)
     while ($nbr > 2) {
-        $nbr = $nbr/2;
+        $nbr = $nbr / 2;
     }
 
     return ($nbr === 2);
+}
+
+function isSelected(int $nbr): void
+{
+    if (isset($_SESSION['nbTeam']) && $_SESSION['nbTeam'] == $nbr) {
+        echo ' selected';
+    }
 }

@@ -1,12 +1,13 @@
 <?php
 
-class Tournament {
+class Tournament
+{
     public function __construct(
         private int $id,
         private string $name,
         private string $game,
         private int $nb_team
-        ){
+    ) {
     }
 
     public function getName(): string
@@ -47,7 +48,7 @@ class Tournament {
      * @param PDO $pdo
      * @return array
      */
-    public function returnMatches($tournID) : array
+    public function returnMatches($tournID): array
     {
         require __DIR__ . '/../config/pdo.php';
         $stmtMatch = $pdo->query("
@@ -80,7 +81,7 @@ class Tournament {
             );"
         );
         // On créé un objet Team pour chaque ligne trouvée et on récupère le nom grâce au getter
-        while($row = $stmtTeams->fetchObject('Team')){
+        while ($row = $stmtTeams->fetchObject('Team')) {
             $teams[] = $row->getName();
         }
         return $teams;
@@ -88,7 +89,7 @@ class Tournament {
 
     // Méthode qui ajoute à la DB ?
     // Avec envoi d'erreur si le nom est déjà dans la DB ou si les types demandés ne sont pas les bons ?
-    
+
     // Méthode qui créé les équipes dans la database
     // Méthode qui créé automatiquement les 1ers matchs (nb_equipe/2) du tournoi dans la database
 }

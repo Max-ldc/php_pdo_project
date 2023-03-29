@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_GET['id']) || empty($_GET['id'])){
+if (!isset($_GET['id']) || empty($_GET['id'])) {
     exit('Recherche incorrecte');
 }
 $idTourn = $_GET['id'];
@@ -18,7 +18,7 @@ if ($tournament === false) { ?>
     <h3 class="ms-5 mt-3">Tournoi introuvable</h3>
     <a href="index.php" class="ms-5 mt-2"><button type="button" class="btn btn-info">Accueil</button></a>
 <?php http_response_code(404);
-exit;
+    exit;
 }
 
 require_once 'classes/Tournament.php';
