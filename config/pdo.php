@@ -3,6 +3,7 @@
 // chargement de mes paramètres de configuration
 
 require_once __DIR__ . '/../vendor/autoload.php';
+
 use Symfony\Component\Dotenv\Dotenv;
 
 $dotenv = new Dotenv();
@@ -14,8 +15,8 @@ $dotenv->loadEnv(__DIR__ . '/.env');
     'DB_NAME' => $dbName,
     'DB_CHARSET' => $dbCharset,
     'DB_USER' => $user,
-    'DB_PASSWORD' => $password
-] = $dbConfig;
+    'DB_PASS' => $password
+] = $_ENV;
 
 $dsn = "mysql:host=$host;port=$port;dbname=$dbName;charset=$dbCharset";
 

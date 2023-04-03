@@ -13,7 +13,7 @@ require_once 'layout/header.php';
 
 <section class="tournlist container mt-4">
     <h1>Les tournois créés</h1>
-    <div class="row mt-5">
+    <div class="row mt-5 gap-1">
         <?php foreach ($tournaments as $tournament) { ?>
             <a href="tournament.php?id=<?php echo $tournament['id']?>" class="card text-center col-6 col-md-4 col-lg-3">
                 <div class="card-body">

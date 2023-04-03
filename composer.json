@@ -6,6 +6,12 @@
             "App\\": "src/"
         }
     },
+    "scripts": {
+        "start": "php -S localhost:8000"
+    },
+    "config": {
+        "process-timeout": 0
+    },
     "authors": [
         {
             "name": "Maxence Leduc",
