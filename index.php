@@ -1,8 +1,12 @@
 <?php
+
+require_once 'vendor/autoload.php';
 require_once 'config/pdo.php';
+use App\Crud\TournamentCrud;
+
 // Je sélectionne tous les tournois de ma BDD pour les afficher en page d'accueil
-$stmt = $pdo->query('SELECT * FROM tournament');
-$tournaments = $stmt->fetchAll();
+$tournamentsDB = new TournamentCrud($pdo);
+$tournaments = $tournamentsDB->list();
 
 require_once 'layout/header.php';
 ?>

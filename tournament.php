@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 
+use App\Crud\TournamentCrud;
 use App\Entities\Tournament;
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
@@ -9,18 +10,15 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $idTourn = $_GET['id'];
 
 require 'config/pdo.php';
-$stmtTourn = $pdo->prepare("SELECT * FROM tournament WHERE id = :id");
-$stmtTourn->execute([
-    'id' => $idTourn
-]);
-$tournament = $stmtTourn->fetch();
+$tournsDB = new TournamentCrud($pdo);
+$tournament = $tournsDB->getTournById($idTourn);
 
 require_once 'layout/header.php';
 
-if ($tournament === false) { ?>
+if (empty($tournament)) { ?>
     <h3 class="ms-5 mt-3">Tournoi introuvable</h3>
     <a href="index.php" class="ms-5 mt-2"><button type="button" class="btn btn-info">Accueil</button></a>
-<?php http_response_code(404);
+    <?php http_response_code(404);
     exit;
 }
 

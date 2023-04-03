@@ -22,6 +22,7 @@ class TournamentCrud
                 'nbTeam' => $tourn->getNbTeam()
             ]
         );
+        return ($stmt !== false);
     }
 
     public function list(): array
@@ -29,6 +30,14 @@ class TournamentCrud
         $stmt = $this->pdo->query('SELECT * FROM tournament;');
         $tournaments = $stmt->fetchAll();
         return $tournaments;
+    }
+
+    public function getTournById(int $id): array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM tournament WHERE id = :id;');
+        $stmt->execute( ['id' => $id] );
+        $tourn = $stmt->fetch();
+        return ($tourn === false) ? [] : $tourn;
     }
 
     public function updateName(int $id, string $name)
@@ -40,6 +49,7 @@ class TournamentCrud
                 'id' => $id
             ]
         );
+        return ($stmt !== false);
     }
 
     public function updateGame(int $id, string $game)
@@ -51,6 +61,7 @@ class TournamentCrud
                 'id' => $id
             ]
         );
+        return ($stmt !== false);
     }
 
     public function updateNbTeam(int $id, int $nbTeam): bool
