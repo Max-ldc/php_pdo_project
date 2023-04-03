@@ -1,5 +1,9 @@
 <?php
 
+namespace App;
+
+use App\Team;
+
 class Game {
     public function __construct(
         private Team $teamA,

@@ -1,7 +1,12 @@
 <?php
 
 // chargement de mes paramètres de configuration
-$dbConfig = parse_ini_file('db.ini');
+
+require_once __DIR__ . '/../vendor/autoload.php';
+use Symfony\Component\Dotenv\Dotenv;
+
+$dotenv = new Dotenv();
+$dotenv->loadEnv(__DIR__ . '/.env');
 
 [
     'DB_HOST' => $host,

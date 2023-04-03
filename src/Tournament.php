@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class Tournament {
     public function __construct(
         private int $id,
@@ -61,30 +63,30 @@ class Tournament {
         return $matchs;
     }
 
-    // Méthode qui va chercher toutes les équipes du tournoi :
-    /**
-     * return an array of the names of all the current tournament teams'
-     *
-     * @param PDO $pdo
-     * @return array
-     */
-    public function getTeams(): array
-    {
-        require __DIR__ . '/../config/pdo.php';
-        require 'classes/Team.php';
-        $stmtTeams = $pdo->query(
-            "SELECT name FROM team WHERE id IN (
-                SELECT id_team_A FROM game WHERE id_tour = 1
-                UNION
-                SELECT id_team_B FROM game WHERE id_tour = 1
-            );"
-        );
-        // On créé un objet Team pour chaque ligne trouvée et on récupère le nom grâce au getter
-        while($row = $stmtTeams->fetchObject('Team')){
-            $teams[] = $row->getName();
-        }
-        return $teams;
-    }
+    // // Méthode qui va chercher toutes les équipes du tournoi :
+    // /**
+    //  * return an array of the names of all the current tournament teams'
+    //  *
+    //  * @param PDO $pdo
+    //  * @return array
+    //  */
+    // public function getTeams(): array
+    // {
+    //     require __DIR__ . '/../config/pdo.php';
+
+    //     $stmtTeams = $pdo->query(
+    //         "SELECT name FROM team WHERE id IN (
+    //             SELECT id_team_A FROM game WHERE id_tour = 1
+    //             UNION
+    //             SELECT id_team_B FROM game WHERE id_tour = 1
+    //         );"
+    //     );
+    //     // On créé un objet Team pour chaque ligne trouvée et on récupère le nom grâce au getter
+    //     while($row = $stmtTeams->fetchObject('Team')){
+    //         $teams[] = $row->getName();
+    //     }
+    //     return $teams;
+    // }
 
     // Méthode qui ajoute à la DB ?
     // Avec envoi d'erreur si le nom est déjà dans la DB ou si les types demandés ne sont pas les bons ?
