@@ -5,19 +5,19 @@ namespace App\Crud;
 use App\Entities\Team;
 use PDO;
 
-class TournamentCrud
+class TeamCrud
 {
     public function __construct(private PDO $pdo)
     {
     }
 
-    public function create(Team $team)
+    public function create(Team $team): bool
     {
-        $query = "INSERT INTO users VALUES(:name);";
+        $query = "INSERT INTO team VALUES(null, :name);";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(
             [
-                'teamA' => $team->getName(),
+                'name' => $team->getName(),
             ]
         );
         return ($stmt !== false);
@@ -55,5 +55,19 @@ class TournamentCrud
     {
         $stmt = $this->pdo->query('DELETE FROM team WHERE id = ' . $id);
         return ($stmt !== false);
+    }
+
+    public function lastCreatedId(): int
+    {
+        $stmt = $this->pdo->query("SELECT id FROM team ORDER BY id DESC LIMIT 1");
+        $row = $stmt->fetch();
+        return $row['id'];
+    }
+
+    public function getTeamById(int $id): Team
+    {
+        $stmt = $this->pdo->query("SELECT * FROM team WHERE id = $id");
+        $row = $stmt->fetch();
+        return new Team($row['name'], $row['id']);
     }
 }

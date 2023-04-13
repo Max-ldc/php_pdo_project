@@ -1,6 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 
+use App\Crud\GameCrud;
 use App\Crud\TournamentCrud;
 use App\Entities\Tournament;
 
@@ -31,8 +32,8 @@ $trn = new Tournament(
 
 echo $trn->getName() . '<br/>';
 echo $trn->getGame();
-$matchs = $trn->returnMatches($idTourn);
-var_dump($matchs);
+$matchs = new GameCrud($pdo);
+var_dump($matchs->listOfTournMatches($idTourn));
 ?>
 
 <a href="index.php" class="ms-5 mt-2"><button type="button" class="btn btn-info">Accueil</button></a>

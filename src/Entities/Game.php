@@ -9,33 +9,37 @@ class Game
     public function __construct(
         private Team $teamA,
         private Team $teamB,
-        private Team $win_team
+        private ?Team $win_team = null
     ) {
     }
 
-    public function getTeamA()
+    public function getTeamAId(): int
     {
-        return $this->teamA;
+        return $this->teamA->getId();
     }
-    public function setTeamA($team)
+    public function setTeamA(Team $team)
     {
         $this->teamA = $team;
     }
 
-    public function getTeamB()
+    public function getTeamBId(): int
     {
-        return $this->teamB;
+        return $this->teamB->getId();
     }
-    public function setTeamB($team)
+    public function setTeamB(Team $team)
     {
         $this->teamB = $team;
     }
 
-    public function getWinnerTeam()
+    public function getWinnerTeamId(): ?int
     {
-        return $this->win_team;
+        if ($this->win_team !== null) {
+            return $this->win_team->getId();
+        } else {
+            return null;
+        }
     }
-    public function setWinnerTeam($team)
+    public function setWinnerTeam(Team $team)
     {
         $this->win_team = $team;
     }

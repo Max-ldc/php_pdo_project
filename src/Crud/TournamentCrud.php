@@ -13,7 +13,7 @@ class TournamentCrud
 
     public function create(Tournament $tourn)
     {
-        $query = "INSERT INTO users VALUES(null, :name, :game, :nbTeam);";
+        $query = "INSERT INTO tournament VALUES(null, :name, :game, :nbTeam);";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(
             [
@@ -81,5 +81,12 @@ class TournamentCrud
         // On exécute la suppression et on retourne si elle s'est bien executée ou non
         $stmt = $this->pdo->query('DELETE FROM tournament WHERE id = ' . $id);
         return ($stmt !== false);
+    }
+    
+    public function lastCreatedId(): int
+    {
+        $stmt = $this->pdo->query("SELECT id FROM tournament ORDER BY id DESC LIMIT 1");
+        $row = $stmt->fetch();
+        return $row['id'];
     }
 }
