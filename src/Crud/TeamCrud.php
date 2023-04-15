@@ -26,14 +26,14 @@ class TeamCrud
     public function listOfTournTeams(int $id): array
     {
         $stmtTeams = $this->pdo->query(
-        "SELECT name FROM team WHERE id IN (
+            "SELECT name FROM team WHERE id IN (
             SELECT id_team_A FROM game WHERE id_tour = $id
             UNION
             SELECT id_team_B FROM game WHERE id_tour = $id
         );"
         );
         // On récupère juste le nom de chaque équipe
-        while($row = $stmtTeams->fetch()){
+        while ($row = $stmtTeams->fetch()) {
             $teams[] = $row->getName();
         }
         return $teams;

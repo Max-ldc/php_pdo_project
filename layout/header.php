@@ -13,3 +13,4 @@
 </head>
 
 <body>
+    <?php require_once "./layout/navbar.php";
