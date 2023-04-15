@@ -39,7 +39,7 @@ class Utils
     }
     
     /**
-     * Return a random key of an array. Carefull, transform the array's keys into a 0 starting and auto-increment keys
+     * Return a random key of an array. Carefull, transform the array's keys into a 0 starting and increment keys
      *
      * @param array $array
      * @return integer
@@ -51,15 +51,21 @@ class Utils
         return round(rand(0, $keyMax));
     }
 
+    /**
+     * delete 2 values of an array thanks to their keys. returns an array with increment keys starting at 0
+     *
+     * @param array $array
+     * @param integer $key1
+     * @param integer $key2
+     * @return array
+     */
     public static function removeTwoValues(array $array, int $key1, int $key2): array
     {
-        // if ($key1 > $key2) {
-            array_splice($array, $key1, 1);
-            array_splice($array, $key2, 1);
-        // } else {
-        //     array_splice($array, $key2, 1);
-        //     array_splice($array, $key1, 1);
-        // }
+        // On supprime les 2 valeurs et les 2 clés :
+        unset($array[$key1]);
+        unset($array[$key2]);
+        // On reforme le tableau pour reset les clés en partant de 0
+        $array = array_values($array);
         return $array;
     }
 }

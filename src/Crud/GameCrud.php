@@ -60,6 +60,13 @@ class GameCrud
         return ($stmt !== false);
     }
 
+    /**
+     * Creates the first round of a tournament in database. Needs the list of teams' IDs and the tournament's ID.
+     *
+     * @param array $createdTeams
+     * @param integer $idTourn
+     * @return void
+     */
     public function createFirstRound(array $createdTeams, int $idTourn): void
     {
         $crudTeam = new TeamCrud($this->pdo);
@@ -76,10 +83,8 @@ class GameCrud
             $team2 = $crudTeam->getTeamById($idTeam2);
 
             $match = new Game($team1, $team2);
-            var_dump($match);
-            // $this->create($match, $idTourn);
-            Utils::removeTwoValues($createdTeams, $randKey1, $randKey2);
-            var_dump($createdTeams);
+            $this->create($match, $idTourn);
+            $createdTeams = Utils::removeTwoValues($createdTeams, $randKey1, $randKey2);
         }
     }
 }
