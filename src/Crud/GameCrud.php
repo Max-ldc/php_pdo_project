@@ -5,6 +5,7 @@ namespace App\Crud;
 use App\Entities\Game;
 use App\Utils;
 use PDO;
+use App\stdClass;
 
 class GameCrud
 {
@@ -30,14 +31,18 @@ class GameCrud
     public function listOfTournMatches(int $id): array
     {
         $stmtMatch = $this->pdo->query("
-        SELECT game.id 'game', TA.name 'teamA', TB.name 'teamB'
+        SELECT game.id 'game', TA.name 'teamA', TB.name 'teamB', game.id_team_win 'teamWin'
         FROM game
         LEFT JOIN team `TA` ON game.id_team_A = TA.id
         LEFT JOIN team `TB` ON game.id_team_B = TB.id
         WHERE game.id_tour = $id;
         ");
-        $matchs = $stmtMatch->fetchAll();
-        return $matchs;
+        $matches = $stmtMatch->fetchAll(PDO::FETCH_CLASS, 'App\\stdClass');
+        var_dump($matches);
+        foreach ($matches as $match) {
+            $match->test();
+        }
+        // return $matchs;
     }
 
     public function updateWinner(int $idMatch, int $idWinner): bool

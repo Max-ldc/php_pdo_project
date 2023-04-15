@@ -23,17 +23,13 @@ if (empty($tournament)) { ?>
     exit;
 }
 
-$trn = new Tournament(
-    $tournament['name'],
-    $tournament['game'],
-    $tournament['nb_equipe'],
-    $tournament['id']
-);
-
-echo $trn->getName() . '<br/>';
-echo $trn->getGame();
-$matchs = new GameCrud($pdo);
-var_dump($matchs->listOfTournMatches($idTourn));
+echo $tournament->getName() . '<br/>';
+echo $tournament->getGame();
+$gameCrud = new GameCrud($pdo);
+$games = $gameCrud->listOfTournMatches($idTourn);
+foreach ($games as $game) {
+    var_dump($game);
+}
 ?>
 
 <a href="index.php" class="ms-5 mt-2"><button type="button" class="btn btn-info">Accueil</button></a>

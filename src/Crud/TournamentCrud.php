@@ -32,15 +32,24 @@ class TournamentCrud
         return $tournaments;
     }
 
-    public function getTournById(int $id): array
+    public function getTournById(int $id): ?Tournament
     {
         $stmt = $this->pdo->prepare('SELECT * FROM tournament WHERE id = :id;');
         $stmt->execute( ['id' => $id] );
-        $tourn = $stmt->fetch();
-        return ($tourn === false) ? [] : $tourn;
+        $tournament = $stmt->fetch();
+        if ($tournament === false) {
+            return null;
+        } else {
+            return new Tournament(
+                $tournament['name'],
+                $tournament['game'],
+                $tournament['nb_equipe'],
+                $tournament['id']
+            );
+        }
     }
 
-    public function updateName(int $id, string $name)
+    public function updateName(int $id, string $name): bool
     {
         $stmt = $this->pdo->prepare('UPDATE tournament SET name = :name WHERE id = :id;');
         $stmt->execute(
@@ -52,7 +61,7 @@ class TournamentCrud
         return ($stmt !== false);
     }
 
-    public function updateGame(int $id, string $game)
+    public function updateGame(int $id, string $game): bool
     {
         $stmt = $this->pdo->prepare('UPDATE tournament SET name = :game WHERE id = :id;');
         $stmt->execute(
