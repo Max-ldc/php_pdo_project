@@ -2,7 +2,7 @@
 
 namespace App\Crud;
 
-use App\Entities\Team;
+use App\Entity\Team;
 use PDO;
 
 class TeamCrud

@@ -2,7 +2,7 @@
 
 namespace App\Crud;
 
-use App\Entities\Game;
+use App\Entity\Game;
 use App\Utils;
 use PDO;
 

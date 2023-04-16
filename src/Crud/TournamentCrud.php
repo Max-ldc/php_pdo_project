@@ -2,7 +2,7 @@
 
 namespace App\Crud;
 
-use App\Entities\Tournament;
+use App\Entity\Tournament;
 use PDO;
 
 class TournamentCrud

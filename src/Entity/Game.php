@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entities;
+namespace App\Entity;
 
-use App\Entities\Team;
+use App\Entity\Team;
 
 class Game
 {

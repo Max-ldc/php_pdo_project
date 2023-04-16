@@ -5,8 +5,8 @@ require_once 'vendor/autoload.php';
 use App\Crud\GameCrud;
 use App\Crud\TeamCrud;
 use App\Crud\TournamentCrud;
-use App\Entities\Team;
-use App\Entities\Tournament;
+use App\Entity\Team;
+use App\Entity\Tournament;
 use App\Session;
 use App\Utils;
 
