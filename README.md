@@ -39,11 +39,11 @@ Je me suis rapidement heurté à pas mal de limites sur ce projet, et j'ai du am
 
 # Début du code
 ## Structure
-En premier, j'ai commencé par structurer au mieux mon code : dossier config, dossier layout avec header et footer qu'on require_once... J'ai très vite commencé à créer des classes, dans un dossier classes, que j'ai renommé src en implémentant l'autoload de composer.
+[En premier](https://github.com/Max-ldc/php_pdo_project/tree/e028ff0986e761cb8ad846179ff6fd139e8dda58), j'ai commencé par structurer au mieux mon code : dossier config, dossier layout avec header et footer qu'on require_once... J'ai très vite commencé à [créer des classes](https://github.com/Max-ldc/php_pdo_project/tree/92e231ffd56e39dfac73fbb238b423a43808ace3), dans un dossier classes, que j'ai renommé src en [implémentant l'autoload de composer](https://github.com/Max-ldc/php_pdo_project/tree/621e81fc0969bd5e1e1dfd3bab10a39c97552a3f).
 ## Les classes
-Tout au long de mon projet, j'ai travaillé un maximum autour des classes, en commençant dès le début en créant les classes Tournament, Game et Team. Au début, j'ai mis en place des méthodes dans la classe Tournament pour travailler avec la base de données. 
+Tout au long de mon projet, j'ai travaillé un maximum autour des classes, en commençant [dès le début](https://github.com/Max-ldc/php_pdo_project/tree/92e231ffd56e39dfac73fbb238b423a43808ace3) en créant les classes Tournament, Game et Team. Au début, j'ai mis en place des méthodes dans la classe Tournament pour travailler avec la base de données. 
 
-Au moment de la mise en place de l'autoloader, j'ai commencé à créer TournamentCrud, une nouvelle classe, afin d'accéder au Crud des tournois de manière claire. Puis j'ai mis en place également GameCrud ainsi que TeamCrud, avec les méthodes de base du CRUD : *list*, *get*, *create*, *update* et *delete*. J'avais d'abord supprimé les classes Team et Game, avant de les remettre afin de clarifier le code et mieux communiquer entre les pages et les classes de CRUD.
+[Au moment de la mise en place de l'autoloader](https://github.com/Max-ldc/php_pdo_project/tree/3f037e6b403dc75fae624626fa207e4ee4962233), j'ai commencé à créer TournamentCrud, une nouvelle classe, afin d'accéder au Crud des tournois de manière claire. [Puis](https://github.com/Max-ldc/php_pdo_project/tree/3e2d27fa6bf2c5c55aa36928bee092de3ab7549e) j'ai mis en place également GameCrud ainsi que TeamCrud, avec les méthodes de base du CRUD : *list*, *get*, *create*, *update* et *delete*. J'avais d'abord supprimé les classes Team et Game, avant de les remettre afin de clarifier le code et mieux communiquer entre les pages et les classes de CRUD.
 
 Petit à petit, j'ai ajouté aux classes de CRUD des méthodes qui allaient me servir pour mon projet. Telles que *lastCreatedId*, qui retournent l'id du dernier tournoi ou de la dernière équipe créée, qui me permettent de récupérer cet ID et m'en servir pour la création des matchs. Ou encore *createFirstRound* dans GameCrud, qui créé dans la base de données la 1ère ronde d'un tournoi : elle utilise différentes fonctions que j'ai du créer toujours dans cette volonté de clarifier au maximum le code.
 
@@ -63,7 +63,7 @@ La première fonctionnalité sur laquelle j'ai travaillé, afficher la liste des
 Là, on affiche le nom du tournoi, le jeu/sport, et la liste des matchs. J'ai longtemps eu un var_dump pour vérifier que ça marchait, sans me pencher sur le côté affichage. Puis j'ai décidé de mettre un minimum en page chaque match, et de gérer si on connaissait le vainqueur ou non. Si on ne le connait pas, le match s'affiche avec les 2 noms d'équipes, sans fond. S'il y a un vainqueur, son nom s'affiche sur fond vert, et le nom du perdant sur fond rouge.
 
 ## Création de tournoi
-Une étape plutôt longue sur laquelle j'ai voulu bien tout comprendre et tout faire petit à petit. J'ai du créer un formulaire en plusieurs étapes. 
+Une étape plutôt longue sur laquelle j'ai voulu bien tout comprendre et tout faire petit à petit. J'ai du [créer un formulaire en plusieurs étapes](https://github.com/Max-ldc/php_pdo_project/tree/8e82a14ab1f563287a1afbd0175bec107df6607f). 
 
 D'abord, l'étape de création du tournoi : on demande le nom, le jeu/sport, et le nombre d'équipes. La validation de cette partie nous envoie sur la 2ème partie en méthode POST : la création des équipes. 
 
@@ -76,3 +76,17 @@ Puis on créé les matchs de la 1ère ronde, grâce à la méthode *createFirstR
 ## Errors et Success
 La gestion d'erreur n'est clairement pas optimisée, je n'ai pas pris le temps de créer mes propres Exceptions pour clarifier les erreurs, surtout côté serveur
 Cependant, sur les quelques erreurs côté client que j'ai géré, j'ai choisi d'utiliser des messages "flash" comme on avait vu avec toi, véhiculés par `$_SESSION`
+
+## Test non concluant : Fetch_object
+[Lien du commit avec le test](https://github.com/Max-ldc/php_pdo_project/tree/5c4b9cef15fc334156d3539f18b3eadc07df357b)
+
+Plusieurs fois, une fois au début du projet, une fois cette semaine sur la fin, j'ai testé la méthode de PDOStatement : `fetch_object()`. En effet, dans mes CRUD je vais chercher la liste des tournois, ou la liste des matchs. J'ai testé fetch_object afin qu'il me soit retourné directement un tableau d'objets. 
+
+Lorsque je laisse fetch_object sans paramètre, il me créé bien un objet de classe "stdClass", avec des propriétés publiques créées automatiquement. Mais lorsque je veux mettre en paramètre une classe déjà existante, ou lorsque je veux créer la classe "stdClass" afin de gérer son comportement, fetch_object me renvoie une erreur. Après recherches, j'ai testé avec `fetchAll(PDO::FETCH_CLASS)`, le problème est le même.
+
+## Ce que je n'ai pas fait
+Comme je l'ai mis plus haut, je pense que de l'héritage des classes aurait été intéressant. De la gestion d'erreur avec des lancements d'Exceptions également.
+
+Mais en plus, niveau fonctionnalité, je n'ai pas eu le temps de me pencher sur le côté suivi d'un tournoi : renseigner quelle équipe a gagné le match, et donc que l'application nous renvoie le(s) match(s) suivant(s), et pouvoir faire ça jusqu'à la fin du tournoi, lorsqu'on a le vainqueur de la finale.
+
+Niveau esthétique aussi, je n'ai pas passé beaucoup de temps sur l'affichage et l'aspect visuel du projet !
