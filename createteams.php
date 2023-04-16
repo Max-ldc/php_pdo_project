@@ -41,7 +41,4 @@ require_once 'layout/header.php';
         </div>
         <input type="submit" value="Envoyer" class="btn btn-dark col-auto">
     </form>
-    <a href="killsession.php">
-        <button type="button" class="btn btn-danger">Kill Session</button>
-    </a>
 </section>

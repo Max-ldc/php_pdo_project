@@ -14,11 +14,11 @@ require_once 'layout/header.php';
 
     <?php
     if ($session->hasSuccessFlash()) { ?>
-        <div class="alert alert-success">
+        <div class="alert alert-success mt-3">
             <?php echo $session->consumeFlash(); ?>
         </div>
     <?php } else if ($session->hasErrorFlash()) { ?>
-        <div class="alert alert-danger">
+        <div class="alert alert-danger mt-3">
             <?php echo $session->consumeFlash(); ?>
         </div>
     <?php } ?>
@@ -35,20 +35,18 @@ require_once 'layout/header.php';
         <div class="col-auto my-2">
             <label for="nbTeam">Nombre d'équipes : </label>
             <select name="nbTeam" required>
-                <option value="4" <?php Utils::isSelected(4); ?>>4</option>
-                <option value="8" <?php Utils::isSelected(8); ?>>8</option>
-                <option value="16" <?php Utils::isSelected(16); ?>>16</option>
-                <option value="32" <?php Utils::isSelected(32); ?>>32</option>
-                <option value="64" <?php Utils::isSelected(64); ?>>64</option>
+                <!-- On test si on a un nombre de teams déjà renseigné dans $_SESSION. Si oui et qu'il correspond à une option, on la met en selectionné -->
+                <option value="4" <?php echo Utils::isSelected(4) ? 'selected' : ''; ?>>4</option>
+                <option value="8" <?php echo Utils::isSelected(8) ? 'selected' : ''; ?>>8</option>
+                <option value="16" <?php echo Utils::isSelected(16) ? 'selected' : ''; ?>>16</option>
+                <option value="32" <?php echo Utils::isSelected(32) ? 'selected' : ''; ?>>32</option>
+                <option value="64" <?php echo Utils::isSelected(64) ? 'selected' : ''; ?>>64</option>
             </select>
         </div>
         <div class="col-auto my-2">
             <input type="submit" value="Suivant" class="btn btn-dark col-auto">
         </div>
     </form>
-    <a href="killsession.php">
-        <button type="button" class="btn btn-danger">Kill Session</button>
-    </a>
 </section>
 
 <?php

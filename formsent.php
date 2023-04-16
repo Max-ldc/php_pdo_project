@@ -43,6 +43,7 @@ try {
     $crudGame = new GameCrud($pdo);
     $crudGame->createFirstRound($createdTeams, $idTourn);
 
+    $session->resetTournCreationInfos();
     $session->addSuccessFlash("Tournoi créé");
     Utils::redirect('tournament.php?id=' . $idTourn);
 } catch (Exception $e) {

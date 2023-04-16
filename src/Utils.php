@@ -9,11 +9,15 @@ class Utils
         header('Location:' . $path);
     }
 
-    public static function isSelected(int $nbr): void
+    /**
+     * Checks if the tournament's number of teams in Session corresponds to the number entered in parameter. 
+     *
+     * @param integer $nbr
+     * @return bool
+     */
+    public static function isSelected(int $nbr): bool
     {
-        if (isset($_SESSION['nbTeam']) && $_SESSION['nbTeam'] == $nbr) {
-            echo ' selected';
-        }
+        return (isset($_SESSION['nbTeam']) && $_SESSION['nbTeam'] == $nbr); 
     }
 
     /**

@@ -4,7 +4,6 @@ require_once 'vendor/autoload.php';
 use App\Crud\GameCrud;
 use App\Crud\TeamCrud;
 use App\Crud\TournamentCrud;
-use App\Entities\Game;
 use App\Session;
 use App\Utils;
 
@@ -27,10 +26,15 @@ if (empty($tournament)) {
 }
 
 require_once 'layout/header.php';
-
-// Infos du tournoi :
 ?>
 <div class="container">
+    <?php if ($session->hasSuccessFlash()) { ?>
+        <div class="alert alert-success mt-3">
+            <?php echo $session->consumeFlash(); ?>
+        </div>
+    <?php } ?>
+
+    <!-- Infos du tournoi : -->
     <h3 class="mt-3">Tournoi : <?php echo $tournament->getName(); ?></h3>
     <h5 class="mt-3"> <?php echo $tournament->getGame(); ?> </h5>
 

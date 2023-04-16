@@ -17,11 +17,11 @@ require_once 'layout/header.php';
 <section class="container mt-4">
     <?php
     if ($session->hasSuccessFlash()) { ?>
-        <div class="alert alert-success">
+        <div class="alert alert-success mt-3">
             <?php echo $session->consumeFlash(); ?>
         </div>
     <?php } else if ($session->hasErrorFlash()) { ?>
-        <div class="alert alert-danger">
+        <div class="alert alert-danger mt-3">
             <?php echo $session->consumeFlash(); ?>
         </div>
     <?php } ?>

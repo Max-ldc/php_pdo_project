@@ -9,9 +9,11 @@ class Session
         session_start();
     }
 
-    public function hasTournCreationInfos()
+    public function resetTournCreationInfos()
     {
-        // retourne si il y a dans la session des infos d'une création de tournoi
+        unset($_SESSION['trnName']);
+        unset($_SESSION['trnGame']);
+        unset($_SESSION['nbTeam']);
     }
 
     public function addErrorFlash($msg): void
