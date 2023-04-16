@@ -2,12 +2,14 @@
 
 require_once 'vendor/autoload.php';
 
+use App\Session;
 use App\Utils;
 
-session_start();
+$session = new Session();
 
-if ((empty($_POST) || !isset($_POST['trnName']) || !Utils::isPowerOfTwo($_POST['nbTeam']))) {
-    header('Location: createtourn.php');
+if ((empty($_POST) || !isset($_POST['trnName']) || !isset($_POST['trnGame']) || !Utils::isPowerOfTwo($_POST['nbTeam']))) {
+    $session->addErrorFlash("Veuillez correctement renseigner tous les champs");
+    Utils::redirect('createtourn.php');
 }
 
 [
@@ -18,8 +20,6 @@ if ((empty($_POST) || !isset($_POST['trnName']) || !Utils::isPowerOfTwo($_POST['
 $_SESSION['trnName'] = $trnName;
 $_SESSION['trnGame'] = $trnGame;
 $_SESSION['nbTeam'] = $nbTeam;
-
-var_dump($_SESSION);
 
 require_once 'layout/header.php';
 ?>

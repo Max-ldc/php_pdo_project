@@ -2,16 +2,27 @@
 
 require_once 'vendor/autoload.php';
 
+use App\Session;
 use App\Utils;
 
-session_start();
+$session = new Session();
 
 require_once 'layout/header.php';
-
-var_dump($_SESSION)
 ?>
 
 <section class="frm container">
+
+    <?php
+    if ($session->hasSuccessFlash()) { ?>
+        <div class="alert alert-success">
+            <?php echo $session->consumeFlash(); ?>
+        </div>
+    <?php } else if ($session->hasErrorFlash()) { ?>
+        <div class="alert alert-danger">
+            <?php echo $session->consumeFlash(); ?>
+        </div>
+    <?php } ?>
+
     <form action="createteams.php" method="post" class="d-flex flex-column">
         <div class="my-2 d-flex flex-column">
             <label for="trnName">Nom du tournoi</label>

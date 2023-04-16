@@ -5,31 +5,32 @@ use App\Crud\GameCrud;
 use App\Crud\TeamCrud;
 use App\Crud\TournamentCrud;
 use App\Entities\Game;
+use App\Session;
+use App\Utils;
+
+$session = new Session();
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    exit('Recherche incorrecte');
+    $session->addErrorFlash("Recherche incorrecte");
+    Utils::redirect('index.php');
 }
 $idTourn = $_GET['id'];
 
 require 'config/pdo.php';
 $tournsDB = new TournamentCrud($pdo);
 $tournament = $tournsDB->getTournById($idTourn);
+// Si l'id n'est pas trouvé dans la BDD, on redirige vers l'index avec un message d'erreur:
+if (empty($tournament)) {
+    $session->addErrorFlash("Erreur : tournoi introuvable");
+    http_response_code(404);
+    Utils::redirect('index.php');
+}
 
 require_once 'layout/header.php';
+
+// Infos du tournoi :
 ?>
-
 <div class="container">
-
-    <?php
-    if (empty($tournament)) { ?>
-        <h3 class="mt-3">Tournoi introuvable</h3>
-        <a href="index.php" class="mt-2"><button type="button" class="btn btn-info">Accueil</button></a>
-    <?php http_response_code(404);
-        exit;
-    }
-
-    // Infos du tournoi :
-    ?>
     <h3 class="mt-3">Tournoi : <?php echo $tournament->getName(); ?></h3>
     <h5 class="mt-3"> <?php echo $tournament->getGame(); ?> </h5>
 
@@ -41,14 +42,10 @@ require_once 'layout/header.php';
     $games = $gameCrud->listOfTournMatches($idTourn);
     // Pour chaque game on veut afficher le nom de chaque équipe, et changer le visuel si il y a déjà un vainqueur
     foreach ($games as $game) {
+        // on récupère les 2 équipes et le gagnant s'il y en a un, pour créer un match
         $teamA = $teamCrud->getTeamById($game['teamA']);
         $teamB = $teamCrud->getTeamById($game['teamB']);
         $winner = (isset($game['teamWin'])) ? $teamCrud->getTeamById($game['teamWin']) : null;
-        $match = new Game(
-            $teamA,
-            $teamB,
-            $winner
-        );
     ?>
         <div class="card my-3 col-4 col-md-3 col-lg-2">
             <ul class="list-group list-group-flush text-center">

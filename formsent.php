@@ -7,13 +7,15 @@ use App\Crud\TeamCrud;
 use App\Crud\TournamentCrud;
 use App\Entities\Team;
 use App\Entities\Tournament;
+use App\Session;
 use App\Utils;
 
 require_once 'config/pdo.php';
 
-session_start();
+$session = new Session();
 
 if (!isset($_SESSION['trnName']) || !isset($_SESSION['trnGame']) || !isset($_SESSION['nbTeam'])) {
+    $session->addErrorFlash("Veuillez correctement renseigner tous les champs");
     Utils::redirect('createtourn.php');
 }
 
@@ -41,7 +43,9 @@ try {
     $crudGame = new GameCrud($pdo);
     $crudGame->createFirstRound($createdTeams, $idTourn);
 
+    $session->addSuccessFlash("Tournoi créé");
     Utils::redirect('tournament.php?id=' . $idTourn);
 } catch (Exception $e) {
-    echo $e->getMessage();
+    $session->addErrorFlash($e->getMessage());
+    Utils::redirect('createtourn.php');
 }
