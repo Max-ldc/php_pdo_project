@@ -60,6 +60,7 @@ J'ai du créer des fonctions, d'abord dans un fichier *functions.php*, puis dans
 
 ## L'affichage des tournois créés
 La première fonctionnalité sur laquelle j'ai travaillé, afficher la liste des tournois sur `index.php`. Puis en cliquant sur l'un d'eux, par méthode GET grâce à l'ID du tournoi, on nous envoie sur `tournament.php?id=*idTourn*`.
+
 Là, on affiche le nom du tournoi, le jeu/sport, et la liste des matchs. J'ai longtemps eu un var_dump pour vérifier que ça marchait, sans me pencher sur le côté affichage. Puis j'ai décidé de mettre un minimum en page chaque match, et de gérer si on connaissait le vainqueur ou non. Si on ne le connait pas, le match s'affiche avec les 2 noms d'équipes, sans fond. S'il y a un vainqueur, son nom s'affiche sur fond vert, et le nom du perdant sur fond rouge.
 
 ## Création de tournoi
